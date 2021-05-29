@@ -5,9 +5,12 @@
 import globalPluginHandler
 from scriptHandler import script
 import api
-import wx
+
 
 class GlobalPlugin(globalPluginHandler.GlobalPlugin):
-	@script(gesture="kb:NVDA+e", description="View and edit the current clipboard content.")
+	@script(
+		gesture="kb:NVDA+e",
+		description="View and edit the current clipboard content."
+	)
 	def script_editClipboardText(self, gesture):
 		api.copyToClip("test.")
