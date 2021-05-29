@@ -10,6 +10,7 @@ import globalPluginHandler
 from scriptHandler import script
 from .interface import editorGui
 import gui
+import api
 
 
 class GlobalPlugin(globalPluginHandler.GlobalPlugin):
@@ -26,3 +27,8 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		d.Maximize()
 		d.Show()
 		gui.mainFrame.postPopup()
+
+	@script(gesture="kb:NVDA+shift+c", description="Clears the clipboard of all it's content.")
+	def script_clearClipboard(self, gesture):
+		# For some reason, api.copyToClip doesn't copy if we pass a blank string, so pass a space. Need to fix this.
+		api.copyToClip(" ")
