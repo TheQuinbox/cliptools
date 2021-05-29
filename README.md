@@ -2,10 +2,17 @@
 
 An NVDA add-on for managing the clipboard.
 
-## Keys
+## Building
 
-* NVDA+E: Bring up the clipboard editor. From here, you can read and edit the text on your clipboard. When done, press the OK button.
-* NVDA+shift+c: Clear the clipboard of all it's content. If your clipboard wasn't empty when you pressed the shortcut, it will be, and a message will be spoken. If the clipboard is already empty, a different message will be spoken.
+Simply compress to a zip, and rename to .nvda-addon.
+
+## Building documentation
+
+```batch
+cd doc
+cd en
+pandoc -d options.yaml
+```
 
 ## Todo
 
