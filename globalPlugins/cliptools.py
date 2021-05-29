@@ -8,7 +8,8 @@
 
 import globalPluginHandler
 from scriptHandler import script
-from .gui import editorGui
+from .interface import editorGui
+import gui
 
 
 class GlobalPlugin(globalPluginHandler.GlobalPlugin):

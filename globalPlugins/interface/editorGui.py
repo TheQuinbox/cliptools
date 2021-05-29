@@ -35,13 +35,21 @@ class ClipDialog(wx.Dialog):
 		mainSizer.Fit(panel)
 		self.SetSizer(mainSizer)
 		self.edit.SetFocus()
-		self.edit.SetValue(api.getClipData())
 		self.title.SetLabel(
 			# Translators: The title of the text field
 			# that contains the content of the users clipboard.
 			_("Clipboard text.")
 		)
+		try:
+			self.edit.SetValue(api.getClipData())
+		except OSError:
+			# Because reasons, Windows throws an OS error when the clipboard is empty.
+			return
 
 	def onOk(self, evt):
 		self.Hide()
-		api.copyToClip(self.edit.GetValue())
+		try:
+			api.copyToClip(self.edit.GetValue())
+		except OSError:
+			# Because reasons, Windows throws an OS error when the clipboard is empty.
+			return
