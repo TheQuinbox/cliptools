@@ -11,7 +11,7 @@ from scriptHandler import script
 import gui
 import ui
 import wx
-from .pyperclip import *
+from . import pyperclip
 
 
 class ClipDialog(wx.Dialog):
@@ -34,11 +34,20 @@ class ClipDialog(wx.Dialog):
 		self.SetSizer(mainSizer)
 		self.edit.SetFocus()
 		self.title.SetLabel("Clipboard text.")
-		self.edit.SetValue(paste())
+		self.edit.Bind(wx.EVT_KEY_DOWN, self.onKeyDown)
+		self.edit.SetValue(pyperclip.paste())
 
 	def onOk(self, evt):
 		self.Hide()
-		copy(self.edit.GetValue())
+		pyperclip.copy(self.edit.GetValue())
+
+	def onKeyDown(self, evt):
+		# Adapted from source/gui/logViewer.py.
+		key = evt.GetKeyCode()
+		if key == wx.WXK_ESCAPE:
+			self.Hide()
+			return
+		evt.Skip()
 
 
 class GlobalPlugin(globalPluginHandler.GlobalPlugin):
@@ -59,8 +68,8 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		description="Clears the clipboard of all it's content."
 	)
 	def script_clearClipboard(self, gesture):
-		if paste() != "":
-			copy("")
+		if pyperclip.paste() != "":
+			pyperclip.copy("")
 			ui.message("Clipboard cleared.")
 		else:
 			ui.message("The clipboard is already empty.")
