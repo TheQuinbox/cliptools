@@ -9,9 +9,9 @@
 import globalPluginHandler
 from scriptHandler import script
 import gui
-import api
 import ui
 import wx
+from .pyperclip import *
 
 
 class ClipDialog(wx.Dialog):
@@ -34,19 +34,11 @@ class ClipDialog(wx.Dialog):
 		self.SetSizer(mainSizer)
 		self.edit.SetFocus()
 		self.title.SetLabel("Clipboard text.")
-		try:
-			self.edit.SetValue(api.getClipData())
-		except OSError:
-			# Because reasons, Windows throws an OS error when the clipboard is empty.
-			return
+		self.edit.SetValue(paste())
 
 	def onOk(self, evt):
 		self.Hide()
-		try:
-			api.copyToClip(self.edit.GetValue())
-		except OSError:
-			# Because reasons, Windows throws an OS error when the clipboard is empty.
-			return
+		copy(self.edit.GetValue())
 
 
 class GlobalPlugin(globalPluginHandler.GlobalPlugin):
@@ -67,8 +59,8 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		description="Clears the clipboard of all it's content."
 	)
 	def script_clearClipboard(self, gesture):
-		if api.getClipData() != "":
+		if paste() != "":
+			copy("")
 			ui.message("Clipboard cleared.")
-			api.copyToClip(" ")
 		else:
-			ui.message("Clipboard already empty.")
+			ui.message("The clipboard is already empty.")
