@@ -11,13 +11,13 @@ from scriptHandler import script
 from .interface import editorGui
 import gui
 import api
+import ui
+from logHandler import log
 
 
 class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	@script(
 		gesture="kb:NVDA+e",
-		# Translators: The description that's spoken when
-		# the user presses the key in help mode.
 		description=_("View and edit the current clipboard content.")
 	)
 	def script_editClipboardText(self, gesture):
@@ -30,5 +30,8 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 	@script(gesture="kb:NVDA+shift+c", description="Clears the clipboard of all it's content.")
 	def script_clearClipboard(self, gesture):
-		# For some reason, api.copyToClip doesn't copy if we pass a blank string, so pass a space. Need to fix this.
-		api.copyToClip(" ")
+		if api.getClipData() != "":
+			ui.message("Clipboard cleared.")
+			api.copyToClip(" ")
+		else:
+			ui.message("Clipboard already empty.")

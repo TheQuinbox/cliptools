@@ -13,12 +13,7 @@ import api
 
 class ClipDialog(wx.Dialog):
 	def __init__(self):
-		super(ClipDialog, self).__init__(
-			gui.mainFrame,
-			wx.ID_ANY,
-			# Translators: The title of the main cliptools dialog.
-			title=_("Cliptools")
-		)
+		super(ClipDialog, self).__init__(gui.mainFrame, wx.ID_ANY, title="Cliptools")
 		self.panel = panel = wx.Panel(self, wx.ID_ANY)
 		mainSizer = wx.BoxSizer(wx.VERTICAL)
 		clipSizer = wx.BoxSizer(wx.VERTICAL)
@@ -35,11 +30,7 @@ class ClipDialog(wx.Dialog):
 		mainSizer.Fit(panel)
 		self.SetSizer(mainSizer)
 		self.edit.SetFocus()
-		self.title.SetLabel(
-			# Translators: The title of the text field
-			# that contains the content of the users clipboard.
-			_("Clipboard text.")
-		)
+		self.title.SetLabel("Clipboard text.")
 		try:
 			self.edit.SetValue(api.getClipData())
 		except OSError:
