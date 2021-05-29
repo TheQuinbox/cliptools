@@ -28,7 +28,12 @@ class CliptoolsPanel(gui.SettingsPanel):
 
 	def makeSettings(self, sizer):
 		helper = guiHelper.BoxSizerHelper(self, sizer=sizer)
-		self.smBeeps = helper.addItem(wx.CheckBox(self, label="&Beep when certain events are preformed"))
+		self.smBeeps = helper.addItem(
+			wx.CheckBox(
+				self,
+				label="&Beep when certain events are preformed"
+			)
+		)
 		self.smBeeps.SetValue(config.conf["cliptools"]["beeps"])
 
 	def onSave(self):
@@ -74,7 +79,7 @@ class ClipDialog(wx.Dialog):
 class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	def __init__(self, *args, **kwargs):
 		super(globalPluginHandler.GlobalPlugin, self).__init__(*args, **kwargs)
-		gui.settingsDialogs.NVDASettingsDialog.categoryClasses.append(CliptoolsPanel)
+		settingsDialogs.NVDASettingsDialog.categoryClasses.append(CliptoolsPanel)
 
 	@script(
 		gesture="kb:NVDA+e",
@@ -93,10 +98,13 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		description="Clears the clipboard of all it's content."
 	)
 	def script_clearClipboard(self, gesture):
+		beeps = config.conf["cliptools"]["beeps"]
 		if pyperclip.paste() != "":
 			pyperclip.copy("")
-			tones.beep(350, 75)
+			if beeps:
+				tones.beep(350, 75)
 			ui.message("Clipboard cleared.")
 		else:
-			tones.beep(150, 75)
+			if beeps:
+				tones.beep(150, 75)
 			ui.message("The clipboard is already empty.")
