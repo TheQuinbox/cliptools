@@ -3,6 +3,8 @@
 # This code is GPL. See NVDA's license.
 # All of NVDA's license and copying conditions apply here,
 # including the waranty disclosure.
+#
+# Some code adapted from the Tip-of-the-day add-on by Derek Riemer.
 
 import globalPluginHandler
 from scriptHandler import script
@@ -13,7 +15,12 @@ import gui
 
 class ClipDialog(wx.Dialog):
 	def __init__(self):
-		super(ClipDialog, self).__init__(gui.mainFrame, wx.ID_ANY, title="Cliptools")
+		super(ClipDialog, self).__init__(
+			gui.mainFrame,
+			wx.ID_ANY,
+			# Translators: The title of the main cliptools dialog.
+			title=_("Cliptools")
+		)
 		self.panel = panel = wx.Panel(self, wx.ID_ANY)
 		mainSizer = wx.BoxSizer(wx.VERTICAL)
 		clipSizer = wx.BoxSizer(wx.VERTICAL)
@@ -31,6 +38,10 @@ class ClipDialog(wx.Dialog):
 		self.SetSizer(mainSizer)
 		self.edit.SetFocus()
 		self.edit.SetValue(api.getClipData())
+		self.title.SetLabel(
+			# Translators: The title of the text field that contains the content of the users clipboard.
+			_("Clipboard text.")
+		)
 
 	def onOk(self, evt):
 		self.Hide()
@@ -40,7 +51,8 @@ class ClipDialog(wx.Dialog):
 class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	@script(
 		gesture="kb:NVDA+e",
-		description="View and edit the current clipboard content."
+		# Translators: The description that's spoken when the user presses the key in help mode.
+		description=_("View and edit the current clipboard content.")
 	)
 	def script_editClipboardText(self, gesture):
 		d = ClipDialog()
