@@ -108,3 +108,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			if beeps:
 				tones.beep(150, 75)
 			ui.message("The clipboard is already empty.")
+
+	def terminate(self):
+		super(GlobalPlugin, self).terminate()
+		settingsDialogs.NVDASettingsDialog.categoryClasses.remove(CliptoolsPanel)
