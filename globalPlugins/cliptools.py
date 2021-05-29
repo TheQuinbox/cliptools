@@ -1,7 +1,8 @@
 # A part of cliptools.
 # Copyright (C) 2021, Quin Marilyn. All rights reserved.
 # This code is GPL. See NVDA's license.
-# All of NVDA's license and copying conditions apply here, including the waranty disclosure.
+# All of NVDA's license and copying conditions apply here,
+# including the waranty disclosure.
 
 import globalPluginHandler
 from scriptHandler import script
@@ -13,12 +14,12 @@ import gui
 class ClipDialog(wx.Dialog):
 	def __init__(self):
 		super(ClipDialog, self).__init__(gui.mainFrame, wx.ID_ANY, title="Cliptools")
-		self.panel  = panel = wx.Panel(self, wx.ID_ANY)
-		mainSizer=wx.BoxSizer(wx.VERTICAL)
+		self.panel = panel = wx.Panel(self, wx.ID_ANY)
+		mainSizer = wx.BoxSizer(wx.VERTICAL)
 		clipSizer = wx.BoxSizer(wx.VERTICAL)
 		self.title = item = wx.StaticText(panel)
 		clipSizer.Add(item)
-		self.edit = item = wx.TextCtrl(panel, size = (500,500), style=wx.TE_MULTILINE)
+		self.edit = item = wx.TextCtrl(panel, size=(500, 500), style=wx.TE_MULTILINE)
 		clipSizer.Add(item)
 		mainSizer.Add(clipSizer, border=20, flag=wx.LEFT | wx.RIGHT | wx.TOP)
 		buttonSizer = wx.BoxSizer(wx.HORIZONTAL)
