@@ -39,7 +39,8 @@ class ClipDialog(wx.Dialog):
 		self.edit.SetFocus()
 		self.edit.SetValue(api.getClipData())
 		self.title.SetLabel(
-			# Translators: The title of the text field that contains the content of the users clipboard.
+			# Translators: The title of the text field
+			# that contains the content of the users clipboard.
 			_("Clipboard text.")
 		)
 
@@ -51,7 +52,8 @@ class ClipDialog(wx.Dialog):
 class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	@script(
 		gesture="kb:NVDA+e",
-		# Translators: The description that's spoken when the user presses the key in help mode.
+		# Translators: The description that's spoken when
+		# the user presses the key in help mode.
 		description=_("View and edit the current clipboard content.")
 	)
 	def script_editClipboardText(self, gesture):
