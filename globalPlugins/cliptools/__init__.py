@@ -6,9 +6,12 @@
 #
 # Some GUI code adapted from the Tip-of-the-day add-on by Derek Riemer.
 
-import wx
+import globalPluginHandler
+from scriptHandler import script
 import gui
 import api
+import ui
+import wx
 
 
 class ClipDialog(wx.Dialog):
@@ -44,3 +47,28 @@ class ClipDialog(wx.Dialog):
 		except OSError:
 			# Because reasons, Windows throws an OS error when the clipboard is empty.
 			return
+
+
+class GlobalPlugin(globalPluginHandler.GlobalPlugin):
+	@script(
+		gesture="kb:NVDA+e",
+		description="View and edit the current clipboard content."
+	)
+	def script_editClipboardText(self, gesture):
+		d = ClipDialog()
+		gui.mainFrame.prePopup()
+		d.Raise()
+		d.Maximize()
+		d.Show()
+		gui.mainFrame.postPopup()
+
+	@script(
+		gesture="kb:NVDA+shift+c",
+		description="Clears the clipboard of all it's content."
+	)
+	def script_clearClipboard(self, gesture):
+		if api.getClipData() != "":
+			ui.message("Clipboard cleared.")
+			api.copyToClip(" ")
+		else:
+			ui.message("Clipboard already empty.")
