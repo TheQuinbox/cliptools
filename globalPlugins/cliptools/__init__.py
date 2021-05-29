@@ -13,6 +13,26 @@ import ui
 import wx
 from . import pyperclip
 import tones
+import config
+from gui import guiHelper, settingsDialogs
+
+
+confspec = {
+	"beeps": "boolean(default=False)"
+}
+config.conf.spec["cliptools"] = confspec
+
+
+class CliptoolsPanel(gui.SettingsPanel):
+	title = "Cliptools"
+
+	def makeSettings(self, sizer):
+		helper = guiHelper.BoxSizerHelper(self, sizer=sizer)
+		self.smBeeps = helper.addItem(wx.CheckBox(self, label="&Beep when certain events are preformed"))
+		self.smBeeps.SetValue(config.conf["cliptools"]["beeps"])
+
+	def onSave(self):
+		config.conf["cliptools"]["beeps"] = self.smBeeps.IsChecked()
 
 
 class ClipDialog(wx.Dialog):
@@ -52,6 +72,10 @@ class ClipDialog(wx.Dialog):
 
 
 class GlobalPlugin(globalPluginHandler.GlobalPlugin):
+	def __init__(self, *args, **kwargs):
+		super(globalPluginHandler.GlobalPlugin, self).__init__(*args, **kwargs)
+		gui.settingsDialogs.NVDASettingsDialog.categoryClasses.append(CliptoolsPanel)
+
 	@script(
 		gesture="kb:NVDA+e",
 		description="View and edit the current clipboard content."
