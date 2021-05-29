@@ -12,6 +12,7 @@ import gui
 import ui
 import wx
 from . import pyperclip
+import tones
 
 
 class ClipDialog(wx.Dialog):
@@ -70,6 +71,8 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	def script_clearClipboard(self, gesture):
 		if pyperclip.paste() != "":
 			pyperclip.copy("")
+			tones.beep(350, 75)
 			ui.message("Clipboard cleared.")
 		else:
+			tones.beep(150, 75)
 			ui.message("The clipboard is already empty.")
