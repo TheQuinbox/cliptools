@@ -40,11 +40,8 @@ class CliptoolsPanel(gui.SettingsPanel):
 
 class ClipDialog(wx.Dialog):
 	def __init__(self):
-		super(ClipDialog, self).__init__(
-			# Translators: The title of the dialog that pops up when the user presses
-			# NVDA+E.
-			gui.mainFrame, wx.ID_ANY, title=_("Cliptools")
-		)
+		# Translators: The title of the dialog that pops up when the user presses NVDA+E.
+		super(ClipDialog, self).__init__(gui.mainFrame, wx.ID_ANY, title=_("Cliptools"))
 		self.panel = panel = wx.Panel(self, wx.ID_ANY)
 		mainSizer = wx.BoxSizer(wx.VERTICAL)
 		clipSizer = wx.BoxSizer(wx.VERTICAL)
@@ -61,8 +58,7 @@ class ClipDialog(wx.Dialog):
 		mainSizer.Fit(panel)
 		self.SetSizer(mainSizer)
 		self.edit.SetFocus()
-		# Translators: The title of the text field that contains the
-		# clipboard content.
+		# Translators: The title of the text field that contains the clipboard content.
 		self.title.SetLabel(_("Clipboard text."))
 		self.edit.Bind(wx.EVT_KEY_DOWN, self.onKeyDown)
 		self.edit.SetValue(pyperclip.paste())
@@ -87,8 +83,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 	@script(
 		gesture="kb:NVDA+e",
-		# Translators: The help message to be spoken for pressing NVDA+E
-		# in input help mode.
+		# Translators: The help message to be spoken for pressing NVDA+E in input help mode.
 		description=_("View and edit the current clipboard content.")
 	)
 	def script_editClipboardText(self, gesture):
@@ -101,8 +96,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 	@script(
 		gesture="kb:NVDA+shift+c",
-		# Translators: The help message to be spoken when NVDA+Shift+C is pressed
-		# in input help.
+		# Translators: The help message to be spoken when NVDA+Shift+C is pressed in input help.
 		description=_("Clears the clipboard of all it's content.")
 	)
 	def script_clearClipboard(self, gesture):
