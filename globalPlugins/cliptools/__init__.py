@@ -28,10 +28,8 @@ class CliptoolsPanel(gui.SettingsPanel):
 
 	def makeSettings(self, sizer):
 		helper = guiHelper.BoxSizerHelper(self, sizer=sizer)
-		self.smBeeps = helper.addItem(
-			# Translators: The title of the check box for beeps in Cliptools.
-			wx.CheckBox(self, label=_("&Beep when certain events are preformed"))
-		)
+		# Translators: The title of the check box for beeps in Cliptools.
+		self.smBeeps = helper.addItem(wx.CheckBox(self, label=_("&Beep when certain events are preformed")))
 		self.smBeeps.SetValue(config.conf["cliptools"]["beeps"])
 
 	def onSave(self):
@@ -66,12 +64,16 @@ class ClipDialog(wx.Dialog):
 	def onOk(self, evt):
 		self.Hide()
 		pyperclip.copy(self.edit.GetValue())
+		# Translators: The message spoken when the clipboard content is set successfully.
+		ui.message(_("Text set!"))
 
 	def onKeyDown(self, evt):
 		# Adapted from source/gui/logViewer.py.
 		key = evt.GetKeyCode()
 		if key == wx.WXK_ESCAPE:
 			self.Hide()
+			# Translato[rs: The message spoken when clipboard editing is canceled.
+			ui.message(_("Canceled."))
 			return
 		evt.Skip()
 
