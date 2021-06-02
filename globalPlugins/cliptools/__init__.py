@@ -16,7 +16,6 @@ import tones
 import config
 from gui import guiHelper, settingsDialogs
 
-
 confspec = {
 	"beeps": "boolean(default=False)"
 }
@@ -29,10 +28,7 @@ class CliptoolsPanel(gui.SettingsPanel):
 	def makeSettings(self, sizer):
 		helper = guiHelper.BoxSizerHelper(self, sizer=sizer)
 		self.smBeeps = helper.addItem(
-			wx.CheckBox(
-				self,
-				label="&Beep when certain events are preformed"
-			)
+			wx.CheckBox(self, label="&Beep when certain events are preformed")
 		)
 		self.smBeeps.SetValue(config.conf["cliptools"]["beeps"])
 
