@@ -23,12 +23,14 @@ config.conf.spec["cliptools"] = confspec
 
 
 class CliptoolsPanel(gui.SettingsPanel):
-	title = "Cliptools"
+	# Translators: The title of the Cliptools settings dialog.
+	title = _("Cliptools")
 
 	def makeSettings(self, sizer):
 		helper = guiHelper.BoxSizerHelper(self, sizer=sizer)
 		self.smBeeps = helper.addItem(
-			wx.CheckBox(self, label="&Beep when certain events are preformed")
+			# Translators: The title of the check box for beeps in Cliptools.
+			wx.CheckBox(self, label=_("&Beep when certain events are preformed"))
 		)
 		self.smBeeps.SetValue(config.conf["cliptools"]["beeps"])
 
@@ -38,7 +40,11 @@ class CliptoolsPanel(gui.SettingsPanel):
 
 class ClipDialog(wx.Dialog):
 	def __init__(self):
-		super(ClipDialog, self).__init__(gui.mainFrame, wx.ID_ANY, title="Cliptools")
+		super(ClipDialog, self).__init__(
+			# Translators: The title of the dialog that pops up when the user presses
+			# NVDA+E.
+			gui.mainFrame, wx.ID_ANY, title=_("Cliptools")
+		)
 		self.panel = panel = wx.Panel(self, wx.ID_ANY)
 		mainSizer = wx.BoxSizer(wx.VERTICAL)
 		clipSizer = wx.BoxSizer(wx.VERTICAL)
@@ -55,7 +61,9 @@ class ClipDialog(wx.Dialog):
 		mainSizer.Fit(panel)
 		self.SetSizer(mainSizer)
 		self.edit.SetFocus()
-		self.title.SetLabel("Clipboard text.")
+		# Translators: The title of the text field that contains the
+		# clipboard content.
+		self.title.SetLabel(_("Clipboard text."))
 		self.edit.Bind(wx.EVT_KEY_DOWN, self.onKeyDown)
 		self.edit.SetValue(pyperclip.paste())
 
@@ -79,7 +87,9 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 	@script(
 		gesture="kb:NVDA+e",
-		description="View and edit the current clipboard content."
+		# Translators: The help message to be spoken for pressing NVDA+E
+		# in input help mode.
+		description=_("View and edit the current clipboard content.")
 	)
 	def script_editClipboardText(self, gesture):
 		d = ClipDialog()
@@ -91,7 +101,9 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 	@script(
 		gesture="kb:NVDA+shift+c",
-		description="Clears the clipboard of all it's content."
+		# Translators: The help message to be spoken when NVDA+Shift+C is pressed
+		# in input help.
+		description=_("Clears the clipboard of all it's content.")
 	)
 	def script_clearClipboard(self, gesture):
 		beeps = config.conf["cliptools"]["beeps"]
@@ -99,11 +111,13 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			pyperclip.copy("")
 			if beeps:
 				tones.beep(350, 75)
-			ui.message("Clipboard cleared.")
+			# Translators: The message to be spoken when the clipboard is cleared.
+			ui.message(_("Clipboard cleared."))
 		else:
 			if beeps:
 				tones.beep(150, 75)
-			ui.message("The clipboard is already empty.")
+			# Translators: The message to be spoken if the clipboard is already empty.
+			ui.message(_("The clipboard is already empty."))
 
 	def terminate(self):
 		super(GlobalPlugin, self).terminate()
