@@ -154,26 +154,40 @@
 </header>
 <nav id="TOC" role="doc-toc">
 <ul>
-<li><a href="#introduction."><span class="toc-section-number">1</span> Introduction.</a></li>
-<li><a href="#keys"><span class="toc-section-number">2</span> Keys</a></li>
-<li><a href="#configuration"><span class="toc-section-number">3</span> Configuration</a></li>
+<li><a href="#introduction."><span class="toc-section-number">1</span> Introduction.</a>
+<ul>
+<li><a href="#current-features."><span class="toc-section-number">1.1</span> Current features.</a></li>
+<li><a href="#keys"><span class="toc-section-number">1.2</span> Keys</a></li>
+</ul></li>
+<li><a href="#configuration"><span class="toc-section-number">2</span> Configuration</a></li>
+<li><a href="#contributing"><span class="toc-section-number">3</span> Contributing</a>
+<ul>
+<li><a href="#linting-your-changes."><span class="toc-section-number">3.1</span> Linting your changes.</a></li>
+</ul></li>
 </ul>
 </nav>
 <h1 data-number="1" id="introduction."><span class="header-section-number">1</span> Introduction.</h1>
-<p>Cliptools is an NVDA add-on that allows you to manage your clipboard in various ways. These include:</p>
+<p>Cliptools is an NVDA add-on that allows you to manage your clipboard in various ways. A lot is planned for this add-on, and I’m always looking for suggestions!</p>
+<h2 data-number="1.1" id="current-features."><span class="header-section-number">1.1</span> Current features.</h2>
+<p>Currently, cliptools can do the following:</p>
 <ul>
-<li>Clearing the clipboard of all it’s content</li>
-<li>Editing the text currently on your clipboard.</li>
-<li>And more coming soon!</li>
+<li>Clear the clipboard of all it’s content</li>
+<li>Edit the text currently on your clipboard.</li>
 </ul>
-<h1 data-number="2" id="keys"><span class="header-section-number">2</span> Keys</h1>
+<h2 data-number="1.2" id="keys"><span class="header-section-number">1.2</span> Keys</h2>
 <ul>
 <li>NVDA + E: Edit the text that’s currently on your clipboard. To abort, press escape. When done, press the OK button.</li>
 <li>NVDA + Shift + C: Clear the text currently on your clipboard. If your clipboard is already empty, you are told.</li>
 </ul>
-<h1 data-number="3" id="configuration"><span class="header-section-number">3</span> Configuration</h1>
+<h1 data-number="2" id="configuration"><span class="header-section-number">2</span> Configuration</h1>
 <ul>
 <li>Beep when certain events are preformed: Beeps when clearing the clipboard. If it’s already cleared, the beep you hear is lower pitched.</li>
 </ul>
+<h1 data-number="3" id="contributing"><span class="header-section-number">3</span> Contributing</h1>
+<p>I welcome all contributions. It is prefered that you open an issue before filing pull requests, but I won’t require it. A template for pull requests and issues should be coming soon!</p>
+<h2 data-number="3.1" id="linting-your-changes."><span class="header-section-number">3.1</span> Linting your changes.</h2>
+<p>Before submitting pull requests, please run the following</p>
+<pre class="batch"><code>flake8 --config=flake8.ini globalPlugins/cliptools/__init__.py</code></pre>
+<p>If you get no errors, feel free to push!</p>
 </body>
 </html>
