@@ -160,9 +160,14 @@
 <li><a href="#keys"><span class="toc-section-number">1.2</span> Keys</a></li>
 </ul></li>
 <li><a href="#configuration"><span class="toc-section-number">2</span> Configuration</a></li>
-<li><a href="#contributing"><span class="toc-section-number">3</span> Contributing</a>
+<li><a href="#building"><span class="toc-section-number">3</span> Building</a>
 <ul>
-<li><a href="#linting-your-changes."><span class="toc-section-number">3.1</span> Linting your changes.</a></li>
+<li><a href="#building-the-add-on"><span class="toc-section-number">3.1</span> Building the add-on</a></li>
+<li><a href="#building-documentation"><span class="toc-section-number">3.2</span> Building documentation</a></li>
+</ul></li>
+<li><a href="#contributing"><span class="toc-section-number">4</span> Contributing</a>
+<ul>
+<li><a href="#linting-your-changes."><span class="toc-section-number">4.1</span> Linting your changes.</a></li>
 </ul></li>
 </ul>
 </nav>
@@ -183,9 +188,19 @@
 <ul>
 <li>Beep when certain events are preformed: Beeps when clearing the clipboard. If it’s already cleared, the beep you hear is lower pitched.</li>
 </ul>
-<h1 data-number="3" id="contributing"><span class="header-section-number">3</span> Contributing</h1>
+<h1 data-number="3" id="building"><span class="header-section-number">3</span> Building</h1>
+<p>I hope to add SCons integration some time in the future, but for now</p>
+<h2 data-number="3.1" id="building-the-add-on"><span class="header-section-number">3.1</span> Building the add-on</h2>
+<p>Simply compress to a zip, and rename to .nvda-addon. You might also want to delete all the .git stuff before doing so, to keep the file size down.</p>
+<h2 data-number="3.2" id="building-documentation"><span class="header-section-number">3.2</span> Building documentation</h2>
+<p>To build the docs, you will need Pandoc installed.</p>
+<p>Open a command prompt, and type</p>
+<pre class="batch"><code>cd doc
+cd en
+pandoc -d options.yaml</code></pre>
+<h1 data-number="4" id="contributing"><span class="header-section-number">4</span> Contributing</h1>
 <p>I welcome all contributions. It is prefered that you open an issue before filing pull requests, but I won’t require it. A template for pull requests and issues should be coming soon!</p>
-<h2 data-number="3.1" id="linting-your-changes."><span class="header-section-number">3.1</span> Linting your changes.</h2>
+<h2 data-number="4.1" id="linting-your-changes."><span class="header-section-number">4.1</span> Linting your changes.</h2>
 <p>Before submitting pull requests, please run the following</p>
 <pre class="batch"><code>flake8 --config=flake8.ini globalPlugins/cliptools/__init__.py</code></pre>
 <p>If you get no errors, feel free to push!</p>

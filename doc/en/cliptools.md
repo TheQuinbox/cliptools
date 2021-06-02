@@ -20,6 +20,26 @@ Currently, cliptools can do the following:
 
 * Beep when certain events are preformed: Beeps when clearing the clipboard. If it's already cleared, the beep you hear is lower pitched.
 
+## Building
+
+I hope to add SCons integration some time in the future, but for now
+
+### Building the add-on
+
+Simply compress to a zip, and rename to .nvda-addon. You might also want to delete all the .git stuff before doing so, to keep the file size down.
+
+### Building documentation
+
+To build the docs, you will need Pandoc installed.
+
+Open a command prompt, and type
+
+```batch
+cd doc
+cd en
+pandoc -d options.yaml
+```
+
 ## Contributing
 
 I welcome all contributions. It is prefered that you open an issue before filing pull requests, but I won't require it. A template for pull requests and issues should be coming soon!
