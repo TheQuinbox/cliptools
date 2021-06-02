@@ -11,10 +11,10 @@ from scriptHandler import script
 import gui
 import ui
 import wx
-from . import pyperclip
 import tones
 import config
 from gui import guiHelper, settingsDialogs
+from . import pyperclip
 
 confspec = {
 	"beeps": "boolean(default=False)"
@@ -52,30 +52,33 @@ class ClipDialog(wx.Dialog):
 		item = wx.Button(panel, wx.ID_OK)
 		self.Bind(wx.EVT_BUTTON, self.onOk, item)
 		buttonSizer.Add(item)
+		item = wx.Button(panel, wx.ID_CANCEL)
+		self.Bind(wx.EVT_BUTTON, self.onCancel, item)
 		mainSizer.Add(buttonSizer, border=20, flag=wx.LEFT | wx.RIGHT | wx.BOTTOM)
 		mainSizer.Fit(panel)
 		self.SetSizer(mainSizer)
 		self.edit.SetFocus()
 		# Translators: The title of the text field that contains the clipboard content.
 		self.title.SetLabel(_("Clipboard text."))
-		self.edit.Bind(wx.EVT_KEY_DOWN, self.onKeyDown)
 		self.edit.SetValue(pyperclip.paste())
 
 	def onOk(self, evt):
+		beeps = config.conf["cliptools"]["beeps"]
 		self.Hide()
 		pyperclip.copy(self.edit.GetValue())
+		if beeps:
+			tones.beep(350, 75)
 		# Translators: The message spoken when the clipboard content is set successfully.
 		ui.message(_("Text set!"))
 
-	def onKeyDown(self, evt):
-		# Adapted from source/gui/logViewer.py.
-		key = evt.GetKeyCode()
-		if key == wx.WXK_ESCAPE:
-			self.Hide()
-			# Translato[rs: The message spoken when clipboard editing is canceled.
-			ui.message(_("Canceled."))
-			return
-		evt.Skip()
+	def onCancel(self, evt):
+		beeps = config.conf["cliptools"]["beeps"]
+		self.Hide()
+		# Translators: The message spoken when clipboard editing is canceled.
+		if beeps:
+			tones.beep(150, 75)
+		ui.message(_("Canceled."))
+		return
 
 
 class GlobalPlugin(globalPluginHandler.GlobalPlugin):
