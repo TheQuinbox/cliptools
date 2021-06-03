@@ -36,10 +36,10 @@ class CliptoolsPanel(gui.SettingsPanel):
 		config.conf["cliptools"]["beeps"] = self.smBeeps.IsChecked()
 
 
-class ClipDialog(wx.Dialog):
+class ClipboardEditorDialog(wx.Dialog):
 	def __init__(self):
 		# Translators: The title of the dialog that pops up when the user presses NVDA+E.
-		super(ClipDialog, self).__init__(gui.mainFrame, wx.ID_ANY, title=_("Cliptools"))
+		super(ClipboardEditorDialog, self).__init__(gui.mainFrame, wx.ID_ANY, title=_("Cliptools"))
 		self.panel = panel = wx.Panel(self, wx.ID_ANY)
 		mainSizer = wx.BoxSizer(wx.VERTICAL)
 		clipSizer = wx.BoxSizer(wx.VERTICAL)
@@ -92,7 +92,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		description=_("View and edit the current clipboard content.")
 	)
 	def script_editClipboardText(self, gesture):
-		d = ClipDialog()
+		d = ClipboardEditorDialog()
 		gui.mainFrame.prePopup()
 		d.Raise()
 		d.Maximize()
