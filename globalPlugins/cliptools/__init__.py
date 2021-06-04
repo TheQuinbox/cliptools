@@ -16,6 +16,7 @@ import config
 from gui import guiHelper, settingsDialogs
 from . import pyperclip
 import speech
+from logHandler import log
 
 confspec = {
 	"beeps": "boolean(default=False)"
@@ -86,7 +87,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	def __init__(self, *args, **kwargs):
 		super(globalPluginHandler.GlobalPlugin, self).__init__(*args, **kwargs)
 		settingsDialogs.NVDASettingsDialog.categoryClasses.append(CliptoolsPanel)
-		self.lastSpeech = "Bitch"
+		self.lastSpeech = "This is a test"
 		self.oldSpeak = speech.speak
 		speech.speak = self.mySpeak
 
@@ -134,6 +135,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	)
 	def script_copyLast(self, gesture):
 		pyperclip.copy(self.lastSpeech)
+		log.debugWarning(f"This should've worked? lastSpeech = {self.lastSpeech}.")
 		tones.beep(1500, 120)
 
 	def mySpeak(self, text, *args, **kwargs):
