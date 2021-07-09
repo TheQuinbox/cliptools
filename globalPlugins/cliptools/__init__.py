@@ -15,7 +15,6 @@ import tones
 import config
 from gui import guiHelper, settingsDialogs
 from . import pyperclip
-import speech
 
 confspec = {
 	"beeps": "boolean(default=False)"
@@ -86,9 +85,6 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	def __init__(self, *args, **kwargs):
 		super(globalPluginHandler.GlobalPlugin, self).__init__(*args, **kwargs)
 		settingsDialogs.NVDASettingsDialog.categoryClasses.append(CliptoolsPanel)
-		self.lastSpeech = "This is a test"
-		self.oldSpeak = speech.speak
-		speech.speak = self.mySpeak
 
 	@script(
 		gesture="kb:NVDA+e",
@@ -125,17 +121,3 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	def terminate(self):
 		super(GlobalPlugin, self).terminate()
 		settingsDialogs.NVDASettingsDialog.categoryClasses.remove(CliptoolsPanel)
-		speech.speak = self.oldSpeak
-
-	@script(
-		gesture="kb:f12",
-		# Translators: The description spoken when f12 is pressed in input help mode.")
-		description=_("Coppies the last spoken text to the clipboard.")
-	)
-	def script_copyLast(self, gesture):
-		pyperclip.copy(self.lastSpeech)
-		tones.beep(1500, 120)
-
-	def mySpeak(self, text, *args, **kwargs):
-		self.lastSpeech = text
-		self.oldSpeak(text, *args, **kwargs)
