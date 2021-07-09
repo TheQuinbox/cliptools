@@ -2,7 +2,7 @@
 # Copyright (C) 2021, Quin Marilyn. All rights reserved.
 # This code is GPL. See NVDA's license.
 # All of NVDA's license and copying conditions apply here,
-# including the waranty disclosure.
+# including the warranty disclosure.
 #
 # Some GUI code adapted from the Tip-of-the-day add-on by Derek Riemer.
 
@@ -16,7 +16,6 @@ import config
 from gui import guiHelper, settingsDialogs
 from . import pyperclip
 import speech
-from logHandler import log
 
 confspec = {
 	"beeps": "boolean(default=False)"
@@ -135,7 +134,6 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	)
 	def script_copyLast(self, gesture):
 		pyperclip.copy(self.lastSpeech)
-		log.debugWarning(f"This should've worked? lastSpeech = {self.lastSpeech}.")
 		tones.beep(1500, 120)
 
 	def mySpeak(self, text, *args, **kwargs):
