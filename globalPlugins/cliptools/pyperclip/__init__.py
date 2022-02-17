@@ -142,8 +142,7 @@ def init_osx_pyobjc_clipboard():
     def paste_osx_pyobjc():
         "Returns contents of clipboard"
         board = AppKit.NSPasteboard.generalPasteboard()
-        content = board.stringForType_(AppKit.NSStringPboardType)
-        return content
+        return board.stringForType_(AppKit.NSStringPboardType)
 
     return copy_osx_pyobjc, paste_osx_pyobjc
 
@@ -162,10 +161,7 @@ def init_gtk_clipboard():
     def paste_gtk():
         clipboardContents = gtk.Clipboard().wait_for_text()
         # for python 2, returns None if the clipboard is blank.
-        if clipboardContents is None:
-            return ''
-        else:
-            return clipboardContents
+        return '' if clipboardContents is None else clipboardContents
 
     return copy_gtk, paste_gtk
 
@@ -264,7 +260,6 @@ def init_wl_clipboard():
             args.append('--clear')
             subprocess.check_call(args, close_fds=True)
         else:
-            pass
             p = subprocess.Popen(args, stdin=subprocess.PIPE, close_fds=True)
             p.communicate(input=text.encode(ENCODING))
 
@@ -316,14 +311,12 @@ def init_dev_clipboard_clipboard():
         if '\r' in text:
             warnings.warn('Pyperclip cannot handle \\r characters on Cygwin.')
 
-        fo = open('/dev/clipboard', 'wt')
-        fo.write(text)
-        fo.close()
+        with open('/dev/clipboard', 'wt') as fo:
+            fo.write(text)
 
     def paste_dev_clipboard():
-        fo = open('/dev/clipboard', 'rt')
-        content = fo.read()
-        fo.close()
+        with open('/dev/clipboard', 'rt') as fo:
+            content = fo.read()
         return content
 
     return copy_dev_clipboard, paste_dev_clipboard
@@ -355,7 +348,7 @@ class CheckedCall(object):
     def __call__(self, *args):
         ret = self.f(*args)
         if not ret and get_errno():
-            raise PyperclipWindowsException("Error calling " + self.f.__name__)
+            raise PyperclipWindowsException(f'Error calling {self.f.__name__}')
         return ret
 
     def __setattr__(self, key, value):
@@ -631,7 +624,11 @@ def set_clipboard(clipboard):
     }
 
     if clipboard not in clipboard_types:
-        raise ValueError('Argument must be one of %s' % (', '.join([repr(_) for _ in clipboard_types.keys()])))
+        raise ValueError(
+            'Argument must be one of %s'
+            % ', '.join([repr(_) for _ in clipboard_types])
+        )
+
 
     # Sets pyperclip's copy() and paste() functions:
     copy, paste = clipboard_types[clipboard]()
