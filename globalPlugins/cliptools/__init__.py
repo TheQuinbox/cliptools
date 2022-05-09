@@ -15,6 +15,7 @@ import tones
 import config
 from gui import guiHelper, settingsDialogs
 from . import pyperclip
+from logHandler import log
 
 confspec = {
 	"beeps": "boolean(default=False)"
@@ -60,6 +61,7 @@ class ClipboardEditorDialog(wx.Dialog):
 		self.edit.SetFocus()
 		# Translators: The title of the text field that contains the clipboard content.
 		self.title.SetLabel(_("Clipboard text."))
+		log.debug(pyperclip.paste())
 		self.edit.SetValue(pyperclip.paste())
 
 	def onOk(self, evt):
