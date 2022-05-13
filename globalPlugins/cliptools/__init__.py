@@ -14,7 +14,7 @@ import wx
 import tones
 import config
 from gui import guiHelper, settingsDialogs
-from . import pyperclip
+from . import clip_handler
 
 confspec = {
 	"beeps": "boolean(default=False)"
@@ -60,12 +60,12 @@ class ClipboardEditorDialog(wx.Dialog):
 		self.edit.SetFocus()
 		# Translators: The title of the text field that contains the clipboard content.
 		self.title.SetLabel(_("Clipboard text."))
-		self.edit.SetValue(pyperclip.paste())
+		self.edit.SetValue(clip_handler.get_text())
 
 	def onOk(self, evt):
 		beeps = config.conf["cliptools"]["beeps"]
 		self.Hide()
-		pyperclip.copy(self.edit.GetValue())
+		clip_handler.set_text(self.edit.GetValue())
 		if beeps:
 			tones.beep(350, 75)
 		# Translators: The message spoken when the clipboard content is set successfully.
@@ -106,8 +106,8 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	)
 	def script_clearClipboard(self, gesture):
 		beeps = config.conf["cliptools"]["beeps"]
-		if pyperclip.paste() != "":
-			pyperclip.copy("")
+		if clip_handler.get_text() != "":
+			clip_handler.set_text("")
 			if beeps:
 				tones.beep(350, 75)
 			# Translators: The message to be spoken when the clipboard is cleared.
