@@ -49,7 +49,7 @@ I welcome all contributions. It is prefered that you open an issue before filing
 Before submitting pull requests, please run the following
 
 ```batch
-flake8 --config=flake8.ini globalPlugins/cliptools/__init__.py
+flake8 --config=flake8.ini globalPlugins/cliptools
 ```
 
 If you get no errors, feel free to push!
