@@ -1,5 +1,5 @@
 # A part of cliptools.
-# Copyright (C) 2021, Quin Marilyn. All rights reserved.
+# Copyright (C) 2021-2022, Quin Marilyn. All rights reserved.
 # This code is GPL. See NVDA's license.
 # All of NVDA's license and copying conditions apply here,
 # including the warranty disclosure.
