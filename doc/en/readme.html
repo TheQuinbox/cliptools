@@ -21,7 +21,7 @@
       padding-top: 50px;
       padding-bottom: 50px;
       hyphens: auto;
-      word-wrap: break-word;
+      overflow-wrap: break-word;
       text-rendering: optimizeLegibility;
       font-kerning: normal;
     }
@@ -92,6 +92,7 @@
     pre code {
       padding: 0;
       overflow: visible;
+      overflow-wrap: normal;
     }
     .sourceCode {
      background-color: transparent;
@@ -202,7 +203,7 @@ pandoc -d options.yaml</code></pre>
 <p>I welcome all contributions. It is prefered that you open an issue before filing pull requests, but I won’t require it. A template for pull requests and issues should be coming soon!</p>
 <h2 data-number="4.1" id="linting-your-changes."><span class="header-section-number">4.1</span> Linting your changes.</h2>
 <p>Before submitting pull requests, please run the following</p>
-<pre class="batch"><code>flake8 --config=flake8.ini globalPlugins/cliptools/__init__.py</code></pre>
+<pre class="batch"><code>flake8 --config=flake8.ini globalPlugins/cliptools</code></pre>
 <p>If you get no errors, feel free to push!</p>
 </body>
 </html>
