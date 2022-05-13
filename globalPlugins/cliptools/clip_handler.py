@@ -1,3 +1,11 @@
+# clip_handler
+# Read and set the clipboard text natively on Windows, no third-party libraries required.
+#
+# Copyright (C) 2022, Quin Marilyn. All rights reserved.
+# GPL license.
+#
+# Originally a part of Cliptools.
+
 import ctypes
 
 strcpy = ctypes.cdll.msvcrt.strcpy
