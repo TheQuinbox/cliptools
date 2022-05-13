@@ -36,4 +36,4 @@ def set_text(data):
 	strcpy(ctypes.c_char_p(pch_data), bytes(data, "ascii"))
 	GlobalUnlock(hdata)
 	SetClipboardData(1, hdata)
-	CloseClipboard()()
+	CloseClipboard()
