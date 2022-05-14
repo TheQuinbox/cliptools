@@ -28,7 +28,10 @@ def get_text():
 	data = ctypes.c_char_p(pcontents).value
 	CloseClipboard()
 	if data is None: data = ""
-	return data
+	try:
+		return data.decode()
+	except UnicodeDecodeError:
+		return data.decode("raw_unicode_escape")
 
 
 def set_text(data):
