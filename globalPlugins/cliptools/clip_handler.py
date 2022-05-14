@@ -27,6 +27,7 @@ def get_text():
 	pcontents = GetClipboardData(CF_TEXT)
 	data = ctypes.c_char_p(pcontents).value
 	CloseClipboard()
+	if data is None: data = ""
 	return data
 
 
